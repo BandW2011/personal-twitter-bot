@@ -7,4 +7,4 @@ and a separate file named `config.py` with Twitter Dev tokens required for authe
 
 List of adjectives taken from [here](https://www.d.umn.edu/~rave0029/research/adjectives1.txt).
 
-My twitter can be found [@TheNicGard](https://twitter.com/TheNicGard).
+My twitter can be found [@TheNicGard](https://twitter.com/TheNicGard). Inspired by [this guy's](https://twitter.com/_xs) twitter.
