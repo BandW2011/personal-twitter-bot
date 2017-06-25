@@ -38,7 +38,7 @@ def bot_tweet():
         tweet += adjectives[randint(0, len(adjectives) - 1)]
         tweet += ".\n"
         tweet += str(randint(0, 9)) + "-" + "%02d" % randint(0, 99) + "-" + "%03d" % randint(0, 999)
-        tweet += "\n#bot"
+        tweet += "\n#bot v1"
 
         if len(tweet) <= 140:
             break
