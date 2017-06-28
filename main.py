@@ -21,6 +21,7 @@ def generic_tweet(text):
 def interval_func():
     generic_tweet(bot_tweet())
     print("Tweeted at " + datetime.datetime.now().isoformat())
+    rate = 60.0 * 60.0 * randint(24, 48)
     Timer(rate, interval_func).start()
 
 def bot_tweet():
@@ -38,7 +39,7 @@ def bot_tweet():
         tweet += adjectives[randint(0, len(adjectives) - 1)]
         tweet += ".\n"
         tweet += str(randint(0, 9)) + "-" + "%02d" % randint(0, 99) + "-" + "%03d" % randint(0, 999)
-        tweet += "\n#bot v1"
+        tweet += "\n#bot v" + config.version
 
         if len(tweet) <= 140:
             break
