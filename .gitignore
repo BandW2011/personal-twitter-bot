@@ -4,3 +4,4 @@ config.py
 planet-gen/rules.md
 planet-gen/noise-test.py
 planet-gen/Makefile
+*.png
