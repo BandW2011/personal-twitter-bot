@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import datetime, hashlib, noise, os, random
+import datetime, hashlib, noise, random
 import Drawings, Rando, World
 from PIL import Image, ImageDraw, ImageFilter
 
