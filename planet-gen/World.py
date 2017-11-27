@@ -1,4 +1,5 @@
-import Util
+import Drawings, Util
+from PIL import Image, ImageDraw, ImageFilter
 
 class World:
     seed = 0
@@ -9,6 +10,10 @@ class World:
     star_intensity = 0
     star_type = 0
     planet_color = 0x0
+    sun_color = 0x0
+    sun_size = 0
+    moon_num = 0
+    moons = []
 
     def __init__(self):
         self.seed = Util.r_int(0x0, 0xFFFFFF)
@@ -16,9 +21,15 @@ class World:
         self.star_intensity = 100
         self.star_type = Util.r_int(0, 2)
         self.planet_color = (Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff))
+        self.sun_color = (0xFF, Util.r_int(0x0, 0xFF), 0)
+        self.moon_num = Util.r_int(0, 10)
+        self.sun_size = Util.r_int(0, 100)
 
         if Util.r_int(0, 1) == 1:
             self.daylight = True
+
+        for i in range(0, self.moon_num):
+            self.moons.append((Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff)))
 
         while True:
             temp_a = Util.r_int(0x0, 0xff)
@@ -27,6 +38,7 @@ class World:
             if not (temp_a > 0x60 and temp_b > 0x60 and temp_c > 0x60):
                 self.day_sky = (temp_a, temp_b, temp_c)
                 break
+
         while True:
             temp_a = Util.r_int(0x0, 0xff)
             temp_b = Util.r_int(0x0, 0xff)
@@ -34,7 +46,9 @@ class World:
             if temp_a <= 0x50 and temp_b <= 0x50 and temp_c <= 0x50:
                 self.night_sky = (temp_a, temp_b, temp_c)
                 break
-            
+
+
+
     def toString(self):
         string = "World " + str(self.seed)
         string += "\nDay sky color: " + str(self.day_sky)
@@ -43,4 +57,24 @@ class World:
         string += "\nStar intensity: " + str(self.star_intensity)
         string += "\nPlanet color: " + str(self.planet_color)
         string += "\nDaylight: " + str(self.daylight)
+        string += "\nSun color: " + str(self.sun_color)
+        string += "\nSun size: " + str(self.sun_size)
         return string
+
+    def createImage(self, WIDTH, HEIGHT):
+        try:
+            print(self.toString())
+
+            im = Image.new("RGB", (WIDTH, HEIGHT))
+            draw = ImageDraw.Draw(im)
+
+            draw = Drawings.addSky(self, draw, WIDTH, HEIGHT)
+            draw = Drawings.addStars(self, draw, WIDTH, HEIGHT)
+            draw = Drawings.addSun(self, draw, WIDTH, HEIGHT)
+            draw = Drawings.addPlanet(self, draw, WIDTH, HEIGHT)
+            draw = Drawings.addDebug(self, draw, WIDTH, HEIGHT)
+
+            im = im.resize((WIDTH * 4, HEIGHT * 4))
+            im.save(str(self.seed) + ".png", "PNG")
+        except IOError:
+            print("Cannot create image!")

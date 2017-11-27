@@ -24,16 +24,30 @@ def addStars(world, draw, WIDTH, HEIGHT):
                 (Util.r_int(0xC0, 0xFF))))
     return draw
 
+def addSun(world, draw, WIDTH, HEIGHT):
+    sky_color = 0x0
+    pos = (Util.r_int(0, WIDTH), Util.r_int(0, HEIGHT))
+    if world.daylight == False:
+        return draw
+    else:
+        sky_color = world.day_sky
+    outline = world.sun_color
+    if Util.color_distance(world.sun_color, sky_color) < 10:
+        outline = (outline[0] + 0xF, outline[1] + 0xF, outline[2] + 0xF)
+    draw.ellipse(((pos[0], pos[1]), (pos[0] + world.sun_size, pos[1] + world.sun_size)), world.sun_color, outline)
+    return draw
+
 def addPlanet(world, draw, WIDTH, HEIGHT):
     sky_color = 0x0
     outline = world.planet_color
+    offset = Util.r_int(0, WIDTH * 2)
     if world.daylight == False:
         sky_color = world.night_sky
     else:
         sky_color = world.day_sky
     if Util.color_distance(world.planet_color, sky_color) < 10:
         outline = (outline[0] + 0xF, outline[1] + 0xF, outline[2] + 0xF)
-    draw.ellipse(((-3 * WIDTH, HEIGHT * 0.8), (3 * WIDTH, HEIGHT * 2)), world.planet_color, outline)
+    draw.ellipse(((-3 * WIDTH + offset, HEIGHT * 0.8), (3 * WIDTH, HEIGHT * 2)), world.planet_color, outline)
     return draw
 
 def addDebug(world, draw, WIDTH, HEIGHT):
