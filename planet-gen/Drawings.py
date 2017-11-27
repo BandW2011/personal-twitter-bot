@@ -37,6 +37,19 @@ def addSun(world, draw, WIDTH, HEIGHT):
     draw.ellipse(((pos[0], pos[1]), (pos[0] + world.sun_size, pos[1] + world.sun_size)), world.sun_color, outline)
     return draw
 
+def addMoon(world, draw, WIDTH, HEIGHT, moon):
+    sky_color = 0x0
+    if world.daylight == False:
+        sky_color = world.night_sky
+    else:
+        sky_color = world.day_sky
+    pos = (Util.r_int(0, WIDTH), Util.r_int(0, HEIGHT))
+    outline = moon[0]
+    if Util.color_distance(moon[0], sky_color) < 10:
+        outline = (outline[0] + 0xF, outline[1] + 0xF, outline[2] + 0xF)
+    draw.ellipse(((pos[0], pos[1]), (pos[0] + moon[1], pos[1] + moon[1])), moon[0], outline)
+    return draw
+
 def addPlanet(world, draw, WIDTH, HEIGHT):
     sky_color = 0x0
     outline = world.planet_color
