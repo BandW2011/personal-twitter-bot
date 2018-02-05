@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw, ImageFilter
 
 class World:
     seed = 0
+    atmosphere = False
     day_sky = 0x0
     night_sky = 0x0
     # temporary: will change to be based on a time variable, that affects the movement of the sun
@@ -23,7 +24,8 @@ class World:
         self.planet_color = (Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff))
         self.sun_color = (0xFF, Util.r_int(0x0, 0xFF), 0)
         self.moon_num = self.getMoonNum()
-        self.sun_size = Util.r_int(5, 100)
+        self.sun_size = Util.r_int(5, 50)
+        self.atmosphere = Util.r_bool()
 
         if Util.r_int(0, 1) == 1:
             self.daylight = True
@@ -31,25 +33,29 @@ class World:
         for i in range(0, self.moon_num):
             self.moons.append(((Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff)), Util.r_int(5, 50)))
 
-
-        while True:
-            temp_a = Util.r_int(0x0, 0xff)
-            temp_b = Util.r_int(0x0, 0xff)
-            temp_c = Util.r_int(0x0, 0xff)
-            if not (temp_a > 0x60 and temp_b > 0x60 and temp_c > 0x60):
-                self.day_sky = (temp_a, temp_b, temp_c)
-                break
-
-        while True:
-            temp_a = Util.r_int(0x0, 0xff)
-            temp_b = Util.r_int(0x0, 0xff)
-            temp_c = Util.r_int(0x0, 0xff)
-            if temp_a <= 0x50 and temp_b <= 0x50 and temp_c <= 0x50:
-                self.night_sky = (temp_a, temp_b, temp_c)
-                break
+        # cleanup to own function, i just read this and its ridic.
+        if self.atmosphere == True:
+            while True:
+                temp_a = Util.r_int(0x0, 0xff)
+                temp_b = Util.r_int(0x0, 0xff)
+                temp_c = Util.r_int(0x0, 0xff)
+                if not (temp_a > 0x60 and temp_b > 0x60 and temp_c > 0x60):
+                    self.day_sky = (temp_a, temp_b, temp_c)
+                    break
+            while True:
+                temp_a = Util.r_int(0x0, 0xff)
+                temp_b = Util.r_int(0x0, 0xff)
+                temp_c = Util.r_int(0x0, 0xff)
+                if temp_a <= 0x50 and temp_b <= 0x50 and temp_c <= 0x50:
+                    self.night_sky = (temp_a, temp_b, temp_c)
+                    break
+        else:
+            self.day_sky = (Util.r_int(0x0, 0x20), Util.r_int(0x0, 0x20), Util.r_int(0x0, 0x20))
+            self.night_sky = self.day_sky
 
     def toString(self):
         string = "World " + str(self.seed)
+        string += "\nAtmosphere: " + str(self.atmosphere)
         string += "\nDay sky color: " + str(self.day_sky)
         string += "\nNight sky color: " + str(self.night_sky)
         string += "\nStar type: " + str(self.star_type)

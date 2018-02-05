@@ -6,6 +6,9 @@ def r_int(inc_begin, inc_end):
 def r_flo(inc_begin, inc_end):
     return random.uniform(inc_begin, inc_end)
 
+def r_bool():
+    return bool(random.getrandbits(1))
+
 def seedGen(new_seed):
     random.seed(new_seed)
 
