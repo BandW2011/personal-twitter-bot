@@ -13,15 +13,17 @@ def addStars(world, draw, WIDTH, HEIGHT):
     if world.star_type is 1:
         for x in range(0, world.star_intensity):
             draw.point((Util.r_int(0, WIDTH), Util.r_int(0, HEIGHT)), (
-                (Util.r_int(0xF0, 0xFF)),
-                (Util.r_int(0xF0, 0xFF)),
-                (Util.r_int(0xF0, 0xFF))))
+                Util.r_int(0xF0, 0xFF),
+                Util.r_int(0xF0, 0xFF),
+                Util.r_int(0xF0, 0xFF),
+                Util.r_int(0x00, int(world.atmosphere.get_satellite_luminence() * 0xFF))))
     elif world.star_type is 2:
         for x in range(0, world.star_intensity):
             draw.point((Util.r_int(0, WIDTH), Util.r_int(0, HEIGHT)), (
-                (Util.r_int(0xC0, 0xFF)),
-                (Util.r_int(0xC0, 0xFF)),
-                (Util.r_int(0xC0, 0xFF))))
+                Util.r_int(0xB0, 0xFF),
+                Util.r_int(0xB0, 0xFF),
+                Util.r_int(0xB0, 0xFF),
+                Util.r_int(0x00, int(world.atmosphere.get_satellite_luminence() * 0xFF))))
     return draw
 
 def addSun(world, draw, WIDTH, HEIGHT):

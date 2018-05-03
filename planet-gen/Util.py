@@ -9,6 +9,9 @@ def r_flo(inc_begin, inc_end):
 def r_bool():
     return bool(random.getrandbits(1))
 
+def r_tri(inc_begin, inc_end, median):
+    return random.triangular(inc_begin, inc_end, median)
+
 def seedGen(new_seed):
     random.seed(new_seed)
 
