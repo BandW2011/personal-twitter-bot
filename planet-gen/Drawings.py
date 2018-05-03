@@ -1,4 +1,9 @@
+"""
+Code responsible for rendering each planetscape
+"""
+
 import Util
+
 from PIL import Image, ImageDraw, ImageFilter
 
 def addSky(world, draw, WIDTH, HEIGHT):

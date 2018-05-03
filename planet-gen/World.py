@@ -1,16 +1,13 @@
+"""
+Primary class for individual planetscape, each with its own seed
+"""
+
 import Atmosphere, Drawings, Util
+
 from PIL import Image, ImageDraw, ImageFilter
 
 class World:
-    seed = 0
-    atmosphere = 0
-    # temporary: will change to be based on a time variable, that affects the movement of the sun
-    daylight = False
-    star_type = 0
-    star_intensity = 0
-    planet_color = 0x0
-    sun_color = 0x0
-    sun_size = 0
+    # change to separate moon object
     moon_num = 0
     moons = []
 
@@ -23,6 +20,7 @@ class World:
         self.sun_color = (0xFF, Util.r_int(0x0, 0xFF), 0)
         self.moon_num = self.getMoonNum()
         self.sun_size = Util.r_int(5, 50)
+        # temporary: will change to be based on a time variable, that affects the movement of the sun
         self.daylight = Util.r_bool()
         self.atmosphere = Atmosphere.Atmosphere(self.seed)
         self.day_sky = self.atmosphere.day_sky
@@ -58,7 +56,7 @@ class World:
             for moon in self.moons:
                 draw = Drawings.addMoon(self, draw, WIDTH, HEIGHT, moon)
             draw = Drawings.addPlanet(self, draw, WIDTH, HEIGHT)
-            draw = Drawings.addDebug(self, draw, WIDTH, HEIGHT)
+            draw = Drawings.addDebug(self, draw, WIDTH, HEIGHT) # pass as argument instead
 
             im = im.resize((WIDTH * 4, HEIGHT * 4))
             im.save(str(self.seed) + ".png", "PNG")

@@ -1,10 +1,10 @@
+"""
+Manages day and night sky color, air density (translucence), and luminence (brightness of cele. bodies)
+"""
+
 import Util
 
 class Atmosphere:
-    day_sky = 0
-    night_sky = 0
-    air_density = 0
-
     def __init__(self, seed):
         Util.seedGen(seed)
         self.air_density = Util.r_flo(0, 1)

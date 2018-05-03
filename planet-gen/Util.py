@@ -1,3 +1,7 @@
+"""
+Holds general purpose math functions
+"""
+
 import random
 
 def r_int(inc_begin, inc_end):
