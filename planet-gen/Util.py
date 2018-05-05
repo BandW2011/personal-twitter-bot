@@ -16,6 +16,12 @@ def r_bool():
 def r_tri(inc_begin, inc_end, median):
     return random.triangular(inc_begin, inc_end, median)
 
+def r_choice(sequence):
+    return random.choice(sequence)
+
+def r_wchoice(sequence, weights):
+    return random.choices(sequence, weights, k=1)[0]
+
 def seedGen(new_seed):
     random.seed(new_seed)
 
