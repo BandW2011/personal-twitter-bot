@@ -9,6 +9,7 @@ class Atmosphere:
         Util.seedGen(seed)
         self.air_density = Util.r_flo(0, 1)
 
+        # make seed-friendly
         while True:
             temp_r = Util.r_int(0x0, 0xff)
             temp_g = Util.r_int(0x0, 0xff)
