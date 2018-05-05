@@ -10,4 +10,5 @@ if len(sys.argv) >= 2:
         p.main()
         print("\n")
 else:
-    planetscape.main()
+    p = Planetscape()
+    p.main()
