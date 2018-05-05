@@ -1,0 +1,40 @@
+{
+    "seed": 1,
+    "use_seed": false,
+
+    "star_type_weights": [0, 1, 0, 1],
+    "minimum_star_intensity": 0,
+    "maximum_star_intensity": 1500,
+    "median_star_intensity": 50,
+
+    "planet_color": {
+        "minimum_r": 0,
+        "maximum_r": 255,
+        "minimum_g": 0,
+        "maximum_g": 255,
+        "minimum_b": 0,
+        "maximum_b": 255
+    },
+
+    "sun_color": {
+        "minimum_r": 255,
+        "maximum_r": 255,
+        "minimum_g": 0,
+        "maximum_g": 255,
+        "minimum_b": 0,
+        "maximum_b": 0
+    },
+
+    "sun_size": {
+        "minimum_size": 5,
+        "maximum_size": 50
+    },
+
+    "moon_num_weights": {
+        "moon_num": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        "moon_probability": [128, 32, 32, 8, 8, 2, 2, 1, 1]
+    },
+
+    "daylight": true,
+    "use_daylight": false
+}
