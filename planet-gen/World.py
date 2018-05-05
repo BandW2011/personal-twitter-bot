@@ -4,17 +4,14 @@ Primary class for individual planetscape, each with its own seed
 
 import Atmosphere, Drawings, Util
 
+from Moon import Moon
 from PIL import Image, ImageDraw, ImageFilter
 
 class World:
-    # change to separate moon object
-    moon_num = 0
-    moons = []
-
     def __init__(self):
         self.seed = Util.r_int(0x0, 0xFFFFFF)
         Util.seedGen(self.seed)
-        self.star_type = Util.r_int(0, 2)
+        self.star_type = Util.r_wchoice(["None", "Pale", "Colorful", "Uber Colorful"], [10, 10, 10, 1])
         self.star_intensity = int(Util.r_tri(0, 1500, 50))
         self.planet_color = (Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff))
         self.sun_color = (0xFF, Util.r_int(0x0, 0xFF), 0)
@@ -26,8 +23,13 @@ class World:
         self.day_sky = self.atmosphere.day_sky
         self.night_sky = self.atmosphere.night_sky
 
+        self.moons = []
         for i in range(0, self.moon_num):
-            self.moons.append(((Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff), Util.r_int(0x0, 0xff)), Util.r_int(5, 50)))
+            m = Moon()
+            print("Moons: " + str(len(self.moons)))
+            self.moons.append(m)
+
+        print("THERE ARE " + str(len(self.moons)) + " MOONS")
 
     def toString(self):
         string = "World " + str(self.seed)
@@ -64,23 +66,4 @@ class World:
             print("Cannot create image!")
 
     def getMoonNum(self):
-        # make more neat at some point
-        F = Util.r_flo(0, 1)
-        if F < 64 / 319:
-            return 0
-        elif F < 192 / 319:
-            return 1
-        elif F < 256 / 319:
-            return 2
-        elif F < 288 / 319:
-            return 3
-        elif F < 304 / 319:
-            return 4
-        elif F < 312 / 319:
-            return 5
-        elif F < 316 / 319:
-            return 6
-        elif F < 318 / 319:
-            return 7
-        else:
-            return 8
+        return Util.r_wchoice((0, 1, 2, 3, 4, 5, 6, 7, 8), (64, 32, 16, 8, 4, 2, 1, 1, 1))

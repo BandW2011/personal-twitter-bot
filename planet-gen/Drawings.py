@@ -14,20 +14,26 @@ def addSky(world, draw, WIDTH, HEIGHT):
     return draw
 
 def addStars(world, draw, WIDTH, HEIGHT):
-    # 1 is pale stars, 2 is colored stars
-    if world.star_type is 1:
+    if world.star_type is "Pale":
         for x in range(0, world.star_intensity):
             draw.point((Util.r_int(0, WIDTH), Util.r_int(0, HEIGHT)), (
                 Util.r_int(0xF0, 0xFF),
                 Util.r_int(0xF0, 0xFF),
                 Util.r_int(0xF0, 0xFF),
                 Util.r_int(0x00, int(world.atmosphere.get_satellite_luminence() * 0xFF))))
-    elif world.star_type is 2:
+    elif world.star_type is "Colorful":
         for x in range(0, world.star_intensity):
             draw.point((Util.r_int(0, WIDTH), Util.r_int(0, HEIGHT)), (
                 Util.r_int(0xB0, 0xFF),
                 Util.r_int(0xB0, 0xFF),
                 Util.r_int(0xB0, 0xFF),
+                Util.r_int(0x00, int(world.atmosphere.get_satellite_luminence() * 0xFF))))
+    elif world.star_type is "Uber Colorful":
+        for x in range(0, world.star_intensity):
+            draw.point((Util.r_int(0, WIDTH), Util.r_int(0, HEIGHT)), (
+                Util.r_int(0x7F, 0xFF),
+                Util.r_int(0x7F, 0xFF),
+                Util.r_int(0x7F, 0xFF),
                 Util.r_int(0x00, int(world.atmosphere.get_satellite_luminence() * 0xFF))))
     return draw
 
@@ -51,10 +57,10 @@ def addMoon(world, draw, WIDTH, HEIGHT, moon):
     else:
         sky_color = world.day_sky
     pos = (Util.r_int(0, WIDTH), Util.r_int(0, HEIGHT))
-    outline = moon[0]
-    if Util.color_distance(moon[0], sky_color) < 10:
+    outline = moon.color
+    if Util.color_distance(moon.color, sky_color) < 10:
         outline = (outline[0] + 0xF, outline[1] + 0xF, outline[2] + 0xF)
-    draw.ellipse(((pos[0], pos[1]), (pos[0] + moon[1], pos[1] + moon[1])), moon[0], outline)
+    draw.ellipse(((pos[0], pos[1]), (pos[0] + moon.radius, pos[1] + moon.radius)), moon.color, outline)
     return draw
 
 def addPlanet(world, draw, WIDTH, HEIGHT):
